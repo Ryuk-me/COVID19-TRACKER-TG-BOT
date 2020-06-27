@@ -62,6 +62,9 @@ total_deaths = summary['deaths']
 total_active = summary['active']
 regional_data = res['data']['regional']
 total_states = int(len(regional_data))
+date = res['lastRefreshed']
+date_time = date[0:10].replace('-', '/') + "   "+date[12:19]
+last_update = "Last Updated on : "+str(date_time)
 
 stats_all = f"Total Confirmed Cases : {total_cases:,}\nTotal Active Cases : {total_active:,}\nTotal Recovered : {total_recovered:,}\nTotal Deaths : {total_deaths:,}"
 
@@ -78,7 +81,7 @@ def start(update, context):
 
 def stats(update, context):
     """ It will send Stats On running """
-    update.message.reply_text(stats_all)
+    update.message.reply_text(stats_all+"\n"+last_update)
 
 
 def state_wise(update, context):
@@ -157,7 +160,8 @@ Active Indian Cases: {regional_data[index]['confirmedCasesIndian']:,}\n\
 Active Foreign Cases : {regional_data[index]['confirmedCasesForeign']:,}\n\
 Total : {regional_data[index]['totalConfirmed']:,}\n\
 Recovered : {regional_data[index]['discharged']:,}\n\
-Deaths : {regional_data[index]['deaths']:,}"
+Deaths : {regional_data[index]['deaths']:,}\n\
+{last_update}"
 
         query.edit_message_text(state_wise_data)
 
@@ -175,7 +179,7 @@ Deaths : {regional_data[data]['deaths']:,}\n\n"
 
         update.message.reply_text(state_wise_data)
 
-    update.message.reply_text("* * * * * * * * * * * * * *")
+    update.message.reply_text(last_update)
 
 
 def help_command(update, context):
