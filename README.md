@@ -1,4 +1,4 @@
-# COVID19-TRACKER-TG-BOT
+# COVID19-TRACKER-TELEGRAM-BOT
 
 ## API
 `https://api.rootnet.in/covid19-in/stats/latest`
