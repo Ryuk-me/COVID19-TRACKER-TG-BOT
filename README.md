@@ -5,5 +5,6 @@
 
 ## Telegram BOT
 
-`Covid19_19_bot`\n
+`Covid19_19_bot`
+
 Search On Telegram
