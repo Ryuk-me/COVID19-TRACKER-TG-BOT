@@ -8,3 +8,5 @@
 `Covid19_19_bot`
 
 Search On Telegram
+
+## You can check State and District Wise Cases
