@@ -12,44 +12,12 @@ import requests
 import json
 import os
 
+my_states = ['Andaman and Nicobar Islands', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand',
+             'Karnataka', 'Kerala', 'Ladakh', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Puducherry', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
 
-my_dict = {
-    0: 'Andaman and Nicobar Islands',
-    1: 'Andhra Pradesh',
-    2: 'Arunachal Pradesh',
-    3: 'Assam',
-    4: 'Bihar',
-    5: 'Chandigarh',
-    6: 'Chhattisgarh',
-    7: 'Dadra and Nagar Haveli and Daman and Diu',
-    8: 'Delhi',
-    9: 'Goa',
-    10: 'Gujarat',
-    11: 'Haryana',
-    12: 'Himachal Pradesh',
-    13: 'Jammu and Kashmir',
-    14: 'Jharkhand',
-    15: 'Karnataka',
-    16: 'Kerala',
-    17: 'Ladakh',
-    18: 'Madhya Pradesh',
-    19: 'Maharashtra',
-    20: 'Manipur',
-    21: 'Meghalaya',
-    22: 'Mizoram',
-    23: 'Nagaland',
-    24: 'Odisha',
-    25: 'Puducherry',
-    26: 'Punjab',
-    27: 'Rajasthan',
-    28: 'Sikkim',
-    29: 'Tamil Nadu',
-    30: 'Telangana',
-    31: 'Tripura',
-    32: 'Uttar Pradesh',
-    33: 'Uttarakhand',
-    34: 'West Bengal'
-}
+my_new_list = ['Andaman and Nicobar Islands', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Delhi', 'Dadra and Nagar Haveli and Daman and Diu', 'Goa', 'Gujarat', 'Himachal Pradesh', 'Haryana', 'Jharkhand', 'Jammu and Kashmir', 'Karnataka', 'Kerala',
+               'Ladakh', 'Lakshadweep', 'Maharashtra', 'Meghalaya', 'Manipur', 'Madhya Pradesh', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Puducherry', 'Rajasthan', 'Sikkim', 'Telangana', 'Tamil Nadu', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
+
 
 api2 = "https://api.covid19india.org/v2/state_district_wise.json"
 res2 = requests.get(api2).json()
@@ -92,55 +60,57 @@ def state_wise(update, context):
     keyboard = [[InlineKeyboardButton("Andaman & Nicobar", callback_data='Andaman and Nicobar Islands'),
                  InlineKeyboardButton("Andhra Pradesh", callback_data='Andhra Pradesh')],
 
-                [InlineKeyboardButton("Arunachal Pradesh", callback_data="Arunachal Pradesh"),
-                 InlineKeyboardButton("Assam", callback_data="Assam")],
+                [InlineKeyboardButton('Arunachal Pradesh', callback_data='Arunachal Pradesh'),
+                 InlineKeyboardButton('Assam', callback_data='Assam')],
 
-                [InlineKeyboardButton("Bihar", callback_data="Bihar"),
-                 InlineKeyboardButton("Chandigarh", callback_data="Chandigarh")],
+                [InlineKeyboardButton('Bihar', callback_data='Bihar'),
+                 InlineKeyboardButton('Chandigarh', callback_data='Chandigarh')],
 
-                [InlineKeyboardButton("Chhattisgarh", callback_data="Chhattisgarh"),
-                 InlineKeyboardButton("Dadra and Nagar Haveli and Daman and Diu", callback_data="Dadra and Nagar Haveli and Daman and Diu")],
+                [InlineKeyboardButton(
+                    'Chhattisgarh', callback_data='Chhattisgarh'),
+                 InlineKeyboardButton('Delhi', callback_data='Delhi')],
 
-                [InlineKeyboardButton("Delhi", callback_data="Delhi"),
-                 InlineKeyboardButton("Goa", callback_data="Goa")],
+                [InlineKeyboardButton('Dadra and Nagar Haveli and Daman and Diu', callback_data='Dadra and Nagar Haveli and Daman and Diu'),
+                 InlineKeyboardButton('Goa', callback_data='Goa')],
 
-                [InlineKeyboardButton("Gujarat", callback_data="Gujarat"),
-                 InlineKeyboardButton("Haryana", callback_data="Haryana")],
+                [InlineKeyboardButton('Gujarat', callback_data='Gujarat'),
+                 InlineKeyboardButton('Himachal Pradesh', callback_data='Himachal Pradesh')],
 
-                [InlineKeyboardButton("Himachal Pradesh", callback_data="Himachal Pradesh"),
-                 InlineKeyboardButton("Jammu and Kashmir", callback_data="Jammu and Kashmir")],
+                [InlineKeyboardButton('Haryana', callback_data='Haryana'),
+                 InlineKeyboardButton('Jharkhand', callback_data='Jharkhand')],
 
-                [InlineKeyboardButton("Jharkhand", callback_data="Jharkhand"),
-                 InlineKeyboardButton("Karnataka", callback_data="Karnataka")],
+                [InlineKeyboardButton('Jammu and Kashmir', callback_data='Jammu and Kashmir'),
+                 InlineKeyboardButton('Karnataka', callback_data='Karnataka')],
 
-                [InlineKeyboardButton("Kerala", callback_data="Kerala"),
-                 InlineKeyboardButton("Ladakh", callback_data="Ladakh")],
+                [InlineKeyboardButton('Kerala', callback_data='Kerala'),
+                 InlineKeyboardButton('Ladakh', callback_data='Ladakh')],
 
-                [InlineKeyboardButton("Madhya Pradesh", callback_data="Madhya Pradesh"),
-                 InlineKeyboardButton("Maharashtra", callback_data="Maharashtra")],
+                [InlineKeyboardButton(
+                    'Maharashtra', callback_data='Maharashtra')],
 
-                [InlineKeyboardButton("Manipur", callback_data="Manipur"),
-                 InlineKeyboardButton("Meghalaya", callback_data="Meghalaya")],
+                [InlineKeyboardButton('Meghalaya', callback_data='Meghalaya'),
+                 InlineKeyboardButton('Manipur', callback_data='Manipur')],
 
-                [InlineKeyboardButton("Mizoram", callback_data="Mizoram"),
-                 InlineKeyboardButton("Nagaland", callback_data="Nagaland")],
+                [InlineKeyboardButton('Madhya Pradesh', callback_data='Madhya Pradesh'),
+                 InlineKeyboardButton('Mizoram', callback_data='Mizoram')],
 
-                [InlineKeyboardButton("Odisha", callback_data="Odisha"),
-                 InlineKeyboardButton("Puducherry", callback_data="Puducherry")],
+                [InlineKeyboardButton('Nagaland', callback_data='Nagaland'),
+                 InlineKeyboardButton('Odisha', callback_data='Odisha')],
 
-                [InlineKeyboardButton("Punjab", callback_data="Punjab"),
-                 InlineKeyboardButton("Rajasthan", callback_data="Rajasthan")],
+                [InlineKeyboardButton('Punjab', callback_data='Punjab'),
+                 InlineKeyboardButton('Puducherry', callback_data='Puducherry')],
 
-                [InlineKeyboardButton("Sikkim", callback_data="Sikkim"),
-                 InlineKeyboardButton("Tamil Nadu", callback_data="Tamil Nadu")],
+                [InlineKeyboardButton('Rajasthan', callback_data='Rajasthan'),
+                 InlineKeyboardButton('Sikkim', callback_data='Sikkim')],
 
-                [InlineKeyboardButton("Telangana", callback_data="Telangana"),
-                 InlineKeyboardButton("Tripura", callback_data="Tripura")],
+                [InlineKeyboardButton('Telangana', callback_data='Telangana'),
+                 InlineKeyboardButton('Tamil Nadu', callback_data='Tamil Nadu')],
 
-                [InlineKeyboardButton("Uttar Pradesh", callback_data="Uttar Pradesh"),
-                 InlineKeyboardButton("Uttarakhand", callback_data="Uttarakhand")],
+                [InlineKeyboardButton('Tripura', callback_data='Tripura'),
+                 InlineKeyboardButton('Uttar Pradesh', callback_data='Uttar Pradesh')],
 
-                [InlineKeyboardButton("West Bengal", callback_data="West Bengal")]]
+                [InlineKeyboardButton('Uttarakhand', callback_data='Uttarakhand'),
+                 InlineKeyboardButton('West Bengal', callback_data='West Bengal')]]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -153,18 +123,9 @@ def button(update, context):
     # CallbackQueries need to be answered, even if no notification to the user is needed
     # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
     query.answer()
-
-    if query.data in my_dict.values():
-        for key, value in my_dict.items():
-            if query.data in value:
-                index = key
-
-            district_name_data = []
-        for i in range(len(res2[index+1]["districtData"])):
-            district = ("\nDistrict : " + res2[index+1]["districtData"][i]["district"] +
-                        " \nActive : "+str(res2[index+1]["districtData"][i]['active'])+" \nRecovered : "+str(res2[index+1]["districtData"][i]['recovered'])+" \nDeaths : "+str(res2[index+1]["districtData"][i]['deceased']))
-
-            district_name_data.append(district)
+    if query.data in my_states:
+        # print(my_states.index(query.data))
+        index = my_states.index(query.data)
 
         state_wise_data = f"State / UT : {regional_data[index]['loc']}\n\
 Active Indian Cases : {regional_data[index]['confirmedCasesIndian']:,}\n\
@@ -172,6 +133,17 @@ Active Foreign Cases : {regional_data[index]['confirmedCasesForeign']:,}\n\
 Total : {regional_data[index]['totalConfirmed']:,}\n\
 Recovered : {regional_data[index]['discharged']:,}\n\
 Deaths : {regional_data[index]['deaths']:,}"
+
+    if query.data in my_new_list:
+        new_index = my_new_list.index(query.data)
+        # print(new_index)
+        district_name_data = []
+        for i in range(0, len(res2[new_index+1]["districtData"])):
+            district = ("\nDistrict : " + res2[new_index+1]["districtData"][i]["district"] +
+                        " \nActive : "+str(res2[new_index+1]["districtData"][i]['active'])+" \nRecovered : "+str(res2[new_index+1]["districtData"][i]['recovered'])+" \nDeaths : "+str(res2[new_index+1]["districtData"][i]['deceased']))
+
+            district_name_data.append(district)
+
         join = '\n'.join(district_name_data)
         last_data = f"{state_wise_data}\n{join}\n\n{last_update}"
         query.edit_message_text(last_data)
