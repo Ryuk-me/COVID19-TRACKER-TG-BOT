@@ -35,10 +35,10 @@ total_active = summary['active']
 regional_data = res['data']['regional']
 total_states = int(len(regional_data))
 date = res['lastRefreshed']
-date_time = date[0:10].replace('-', '/') + "   "+date[12:19]
-last_update = "Last Updated on : "+str(date_time)
+date_time = str(date[0:10].replace('-', '/') + "   "+date[12:19])
+last_update = f"\nLast Updated on :  *_{date_time}_*"
 
-stats_all = f"Total Confirmed Cases : {total_cases:,}\nTotal Active Cases : {total_active:,}\nTotal Recovered : {total_recovered:,}\nTotal Deaths : {total_deaths:,}"
+stats_all = f"Total Confirmed Cases :  *{total_cases:,}*\nTotal Active Cases :  *{total_active:,}*\nTotal Recovered :  *{total_recovered:,}*\nTotal Deaths :   *{total_deaths:,}*"
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -48,12 +48,13 @@ logger = logging.getLogger(__name__)
 def start(update, context):
     """Send a message when the command /start is issued."""
     update.message.reply_text(
-        f'Welcome to Covid19 Tracker BOT.\nEnter /help to see Commands ')
+        f'*Welcome to Covid19 Tracker BOT*\.\n*Enter  _/help_  to see Commands* ', parse_mode="MarkdownV2")
 
 
 def stats(update, context):
     """ It will send Stats On running """
-    update.message.reply_text(stats_all+"\n"+last_update)
+    update.message.reply_text(
+        stats_all+"\n"+last_update, parse_mode="MarkdownV2")
 
 
 def state_wise(update, context):
@@ -114,7 +115,8 @@ def state_wise(update, context):
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    update.message.reply_text("Select State\n", reply_markup=reply_markup)
+    update.message.reply_text(
+        "_Select State_\n", reply_markup=reply_markup, parse_mode="MarkdownV2")
 
 
 def button(update, context):
@@ -127,53 +129,55 @@ def button(update, context):
         # print(my_states.index(query.data))
         index = my_states.index(query.data)
 
-        state_wise_data = f"State / UT : {regional_data[index]['loc']}\n\
-Active Indian Cases : {regional_data[index]['confirmedCasesIndian']:,}\n\
-Active Foreign Cases : {regional_data[index]['confirmedCasesForeign']:,}\n\
-Total : {regional_data[index]['totalConfirmed']:,}\n\
-Recovered : {regional_data[index]['discharged']:,}\n\
-Deaths : {regional_data[index]['deaths']:,}"
+        state_wise_data = f"State / UT :  *{regional_data[index]['loc']}*\n\
+Active Indian Cases :  *{regional_data[index]['confirmedCasesIndian']:,}*\n\
+Active Foreign Cases :  *{regional_data[index]['confirmedCasesForeign']:,}*\n\
+Total :  *{regional_data[index]['totalConfirmed']:,}*\n\
+Recovered :  *{regional_data[index]['discharged']:,}*\n\
+Deaths :  *{regional_data[index]['deaths']:,}*"
 
     if query.data in my_new_list:
         new_index = my_new_list.index(query.data)
         # print(new_index)
         district_name_data = []
         for i in range(0, len(res2[new_index+1]["districtData"])):
-            district = ("\nDistrict : " + res2[new_index+1]["districtData"][i]["district"] +
-                        " \nActive : "+str(res2[new_index+1]["districtData"][i]['active'])+" \nRecovered : "+str(res2[new_index+1]["districtData"][i]['recovered'])+" \nDeaths : "+str(res2[new_index+1]["districtData"][i]['deceased']))
+            district = ("\nDistrict :  *" + res2[new_index+1]["districtData"][i]["district"] +
+                        "* \nActive :  *"+str(res2[new_index+1]["districtData"][i]['active'])+"* \nRecovered :  *"+str(res2[new_index+1]["districtData"][i]['recovered'])+"* \nDeaths :  *"+str(res2[new_index+1]["districtData"][i]['deceased'])+"*")
 
             district_name_data.append(district)
 
         join = '\n'.join(district_name_data)
-        last_data = f"{state_wise_data}\n{join}\n\n{last_update}"
-        query.edit_message_text(last_data)
+        last_time = f"Last Updated on :  *{date_time}*"
+        last_data = f"{state_wise_data}\n{join}\n\n{last_time}"
+        query.edit_message_text(last_data, parse_mode="Markdown")
 
 
 def allstate(update, context):
     """ STATEWISE COVID CASES """
     for data in range(total_states):
 
-        state_wise_data = f"State / UT : {regional_data[data]['loc']}\n\
-Active Indian Cases : {regional_data[data]['confirmedCasesIndian']:,}\n\
-Active Foreign Cases : {regional_data[data]['confirmedCasesForeign']:,}\n\
-Total : {regional_data[data]['totalConfirmed']:,}\n\
-Recovered : {regional_data[data]['discharged']:,}\n\
-Deaths : {regional_data[data]['deaths']:,}\n\n"
+        state_wise_data = f"State / UT :   *{regional_data[data]['loc']}*\n\
+Active Indian Cases :   *{regional_data[data]['confirmedCasesIndian']:,}*\n\
+Active Foreign Cases :  *{regional_data[data]['confirmedCasesForeign']:,}*\n\
+Total :   *{regional_data[data]['totalConfirmed']:,}*\n\
+Recovered :   *{regional_data[data]['discharged']:,}*\n\
+Deaths :   *{regional_data[data]['deaths']:,}*\n\n"
 
-        update.message.reply_text(state_wise_data)
+        update.message.reply_text(state_wise_data, parse_mode="MarkdownV2")
 
-    update.message.reply_text(last_update)
+    update.message.reply_text(last_update, parse_mode="MarkdownV2")
 
 
 def help_command(update, context):
-    update.message.reply_text("/stats - Check Overall Stats\n\
-/state - Choose cases States & UT's\n\
-/allstate - To Check All state Cases ")
+    update.message.reply_text("_/stats_ \- Check Overall Stats\n\
+_/state_ \- Choose cases States & UT's\n\
+_/allstate_ \- To Check All state Cases ", parse_mode="MarkdownV2")
 
 
 def echo(update, context):
     """Echo the user message."""
-    update.message.reply_text("Please Select Only From Commands")
+    update.message.reply_text(
+        "Unrecognized command. Say what?")
 
 
 def main():
