@@ -51,6 +51,10 @@ my_dict = {
     34: 'West Bengal'
 }
 
+api2 = "https://api.covid19india.org/v2/state_district_wise.json"
+res2 = requests.get(api2).json()
+
+
 api = "https://api.rootnet.in/covid19-in/stats/latest"
 res = requests.get(api).json()
 
@@ -155,15 +159,22 @@ def button(update, context):
             if query.data in value:
                 index = key
 
-        state_wise_data = f"State / UT: {regional_data[index]['loc']}\n\
-Active Indian Cases: {regional_data[index]['confirmedCasesIndian']:,}\n\
+            district_name_data = []
+        for i in range(len(res2[index+1]["districtData"])):
+            district = ("\nDistrict : " + res2[index+1]["districtData"][i]["district"] +
+                        " \nActive : "+str(res2[index+1]["districtData"][i]['active'])+" \nRecovered : "+str(res2[index+1]["districtData"][i]['recovered'])+" \nDeaths : "+str(res2[index+1]["districtData"][i]['deceased']))
+
+            district_name_data.append(district)
+
+        state_wise_data = f"State / UT : {regional_data[index]['loc']}\n\
+Active Indian Cases : {regional_data[index]['confirmedCasesIndian']:,}\n\
 Active Foreign Cases : {regional_data[index]['confirmedCasesForeign']:,}\n\
 Total : {regional_data[index]['totalConfirmed']:,}\n\
 Recovered : {regional_data[index]['discharged']:,}\n\
-Deaths : {regional_data[index]['deaths']:,}\n\
-{last_update}"
-
-        query.edit_message_text(state_wise_data)
+Deaths : {regional_data[index]['deaths']:,}"
+        join = '\n'.join(district_name_data)
+        last_data = f"{state_wise_data}\n{join}\n\n{last_update}"
+        query.edit_message_text(last_data)
 
 
 def allstate(update, context):
@@ -171,7 +182,7 @@ def allstate(update, context):
     for data in range(total_states):
 
         state_wise_data = f"State / UT : {regional_data[data]['loc']}\n\
-Active Indian Cases: {regional_data[data]['confirmedCasesIndian']:,}\n\
+Active Indian Cases : {regional_data[data]['confirmedCasesIndian']:,}\n\
 Active Foreign Cases : {regional_data[data]['confirmedCasesForeign']:,}\n\
 Total : {regional_data[data]['totalConfirmed']:,}\n\
 Recovered : {regional_data[data]['discharged']:,}\n\
