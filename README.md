@@ -12,3 +12,10 @@
 Search On Telegram
 
 ## You can check State and District Wise Cases
+By using Command `/allstate` and select State.
+
+
+## How to use your own TOKEN
+Go to line `187` and comment it out.</br>
+And on line `188` Remove `BOT_TOKEN` and replace it with your TOKEN </br>
+like This `"bot_token"`
