@@ -16,6 +16,6 @@ By using Command `/allstate` and select State.
 
 
 ## How to use your own TOKEN
-Go to line `187` and comment it out.</br>
+Go to line `187` in `main.py`and comment it out.</br>
 And on line `188` Remove `BOT_TOKEN` and replace it with your TOKEN </br>
 like This `"bot_token"`
