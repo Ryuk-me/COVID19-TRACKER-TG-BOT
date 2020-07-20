@@ -5,7 +5,7 @@
 `https://api.covid19india.org/v2/state_district_wise.json`
 
 
-## Telegram BOT
+## Telegram BOT ( BOT DOWN CURRENTLY )
 
 @`Covid19_19_bot`
 
