@@ -12,7 +12,7 @@
 Search On Telegram
 
 ## You can check State and District Wise Cases
-By using Command `/allstate` and select State.
+Use Command `/help` to check all commands.
 
 
 ## How to use your own TOKEN
